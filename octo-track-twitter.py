@@ -15,9 +15,20 @@ import os
 import tweepy
 import tweepy.streaming
 
+class colors:
+    Green = "\033[92m"
+    Blue = "\033[94m"
+    Cyan = "\033[96m"
+    White = "\033[97m"
+    Yellow = "\033[93m"
+    Magenta = "\033[95m"
+    Red = "\033[91m"
+    Black = "\033[90m"
+    init = "\033[0m"
+
 class SearchStream(tweepy.streaming.StreamListener):
     def on_status(self, status):
-        s = '%s @%s: %s\n' % (status.created_at, status.user.screen_name, status.text)
+        s = colors.Blue + str(status.created_at) + " " + colors.Green  + status.user.screen_name + " " + colors.White + status.text + colors.init + "\n"
         output.write(s.encode('utf-8'))
         output.flush()
         return
