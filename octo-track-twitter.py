@@ -25,10 +25,16 @@ class colors:
     Red = "\033[91m"
     Black = "\033[90m"
     init = "\033[0m"
+    date = Blue
+    user = Green
+    message = White
+    pattern = Red
 
 class SearchStream(tweepy.streaming.StreamListener):
     def on_status(self, status):
-        s = colors.Blue + str(status.created_at) + " " + colors.Green  + status.user.screen_name + " " + colors.White + status.text + colors.init + "\n"
+        message = status.text.replace(args[0], colors.pattern + args[0] + colors.message)
+
+        s = colors.date + str(status.created_at) + " " + colors.user + status.user.screen_name + " " + colors.message + message + colors.init + "\n"
         output.write(s.encode('utf-8'))
         output.flush()
         return
